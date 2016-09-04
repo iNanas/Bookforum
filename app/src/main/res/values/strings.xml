@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bookforum</string>
+    <string name="menu_add_event">Add event</string>
 </resources>

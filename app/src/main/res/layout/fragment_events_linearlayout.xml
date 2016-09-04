@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Just Test"
+            android:text="Event name"
             android:id="@+id/forum_event_name"
             android:textColor="#6F696B"
             android:layout_marginBottom="5dp"
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Стенд №113, Палац Мистецтв, 1 поверх"
+            android:text="Location"
             android:id="@+id/forum_event_location"
             android:textColor="#AFA9A9"
             android:layout_marginRight="5dp"/>
