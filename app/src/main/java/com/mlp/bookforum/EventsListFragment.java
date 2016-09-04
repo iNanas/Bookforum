@@ -40,10 +40,20 @@ public class EventsListFragment extends Fragment{
         forumEventsList = new ArrayList<>();
         Events temp_event1 = new Events();
         Events temp_event2 = new Events();
-        temp_event1.setEventName("My Awesome Event");
-        temp_event2.setEventName("My Even More Awesome Event");
+        Events temp_event3 = new Events();
+        Events temp_event4 = new Events();
+        temp_event1.setEventName("Автограф-сесія Девіда Саттера (США).");
+        temp_event2.setEventName("Автограф-сесія Володимира Лиса та Надії Гуменюк.");
+        temp_event3.setEventName("Автограф сесія перекладачів Рея Бредбері – Ірини Бондаренко, Богдана Стасюка та Олени Кіфенко.");
+        temp_event4.setEventName("Творчий вечір Василя Шкляра");
+        temp_event1.setEventLocation("Палац мистецтв, хол 2 поверху");
+        temp_event2.setEventLocation("Стенд №2, Палац Мистецтв, 1 поверх");
+        temp_event3.setEventLocation("вул. Коперника, 17, Палац мистецтв, хол 2 поверху");
+        temp_event4.setEventLocation("вул. Леся Курбаса, 3, Львівський академічний театр імені Леся Курбаса");
         forumEventsList.add(temp_event1);
         forumEventsList.add(temp_event2);
+        forumEventsList.add(temp_event3);
+        forumEventsList.add(temp_event4);
     }
 
     private void setupAdapter(List<Events> eventsList) {
@@ -55,15 +65,18 @@ public class EventsListFragment extends Fragment{
     private class EventsViewHolder extends RecyclerView.ViewHolder {
         private Events mForumEvent;
         private TextView mEventName;
+        private TextView mEventLocation;
 
         public EventsViewHolder(View itemView) {
             super(itemView);
             mEventName = (TextView) itemView.findViewById(R.id.forum_event_name);
+            mEventLocation = (TextView) itemView.findViewById(R.id.forum_event_location);
         }
 
         public void bindEvent(Events forumEvent){
             mForumEvent = forumEvent;
             mEventName.setText(mForumEvent.getEventName());
+            mEventLocation.setText(mForumEvent.getEventLocation());
         }
     }
 
