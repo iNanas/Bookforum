@@ -64,7 +64,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView3"
                 android:src="@drawable/writedown_icon"
                 android:layout_marginTop="5dp"/>
 
@@ -87,7 +86,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView"
                 android:src="@drawable/location_icon"
                 android:layout_marginTop="5dp"/>
 

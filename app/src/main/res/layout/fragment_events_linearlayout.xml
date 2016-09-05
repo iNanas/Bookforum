@@ -48,7 +48,6 @@
         <ImageView
             android:layout_width="21dp"
             android:layout_height="21dp"
-            android:id="@+id/imageView2"
             android:src="@drawable/time_icon"
             android:layout_marginTop="12dp"/>
 
@@ -83,7 +82,6 @@
         <ImageView
             android:layout_width="21dp"
             android:layout_height="21dp"
-            android:id="@+id/imageView"
             android:src="@drawable/location_icon"
             android:layout_marginTop="3dp"/>
 
