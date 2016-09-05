@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,9 @@ import java.util.List;
 public class EventsListFragment extends Fragment{
     private RecyclerView mEventsRecyclerView;
     List<Events> forumEventsList;
+    private TextView mEventName;
+    private TextView mEventLocation;
+    private TextView mEventDate;
 
     public static EventsListFragment newInstance(){
         return new EventsListFragment();
@@ -27,8 +31,8 @@ public class EventsListFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        temp_events_test();
-        //forumEventsList = new ManageSharedPref().loadEvents(getActivity());
+        //temp_events_test();
+        forumEventsList = new ManageSharedPref().loadEvents(getActivity());
     }
 
     @Override
@@ -87,19 +91,19 @@ public class EventsListFragment extends Fragment{
 
     private class EventsViewHolder extends RecyclerView.ViewHolder {
         private Events mForumEvent;
-        private TextView mEventName;
-        private TextView mEventLocation;
 
         public EventsViewHolder(View itemView) {
             super(itemView);
             mEventName = (TextView) itemView.findViewById(R.id.forum_event_name);
             mEventLocation = (TextView) itemView.findViewById(R.id.forum_event_location);
+            mEventDate = (TextView) itemView.findViewById(R.id.forum_event_date);
         }
 
         public void bindEvent(Events forumEvent){
             mForumEvent = forumEvent;
             mEventName.setText(mForumEvent.getEventName());
             mEventLocation.setText(mForumEvent.getEventLocation());
+            mEventDate.setText(DateFormat.format("d MMM", mForumEvent.getEventDate()));
         }
     }
 
