@@ -22,6 +22,7 @@ public class EventsListFragment extends Fragment{
     private TextView mEventName;
     private TextView mEventLocation;
     private TextView mEventDate;
+    private TextView mEventStartTime;
 
     public static EventsListFragment newInstance(){
         return new EventsListFragment();
@@ -97,6 +98,7 @@ public class EventsListFragment extends Fragment{
             mEventName = (TextView) itemView.findViewById(R.id.forum_event_name);
             mEventLocation = (TextView) itemView.findViewById(R.id.forum_event_location);
             mEventDate = (TextView) itemView.findViewById(R.id.forum_event_date);
+            mEventStartTime = (TextView) itemView.findViewById(R.id.forum_event_time_start);
         }
 
         public void bindEvent(Events forumEvent){
@@ -104,6 +106,7 @@ public class EventsListFragment extends Fragment{
             mEventName.setText(mForumEvent.getEventName());
             mEventLocation.setText(mForumEvent.getEventLocation());
             mEventDate.setText(DateFormat.format("d MMM", mForumEvent.getEventDate()));
+            mEventStartTime.setText(DateFormat.format("h:mm", mForumEvent.getEventDate()));
         }
     }
 

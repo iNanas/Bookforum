@@ -16,12 +16,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class NewEventActivity extends AppCompatActivity {
-    private static final String ADD_DATE= "com.mlp.bookforum.add_date";
+    private static final String ADD_DATE = "com.mlp.bookforum.add_date";
+    private static final String ADD_START_TIME = "com.mlp.bookforum.add_start_time";
+    private static final String ADD_FINISH_TIME = "com.mlp.bookforum.add_finish_time";
 
     public static Events mNewEvent;
     private Button mSetDateButton;
@@ -82,15 +84,17 @@ public class NewEventActivity extends AppCompatActivity {
             }
         });
 
-        /*
         mSetStartTimeButton = (Button) findViewById(R.id.set_start_time_button);
         mSetStartTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                FragmentManager manager = getSupportFragmentManager();
+                SetEventDate calendar = new SetEventDate();
+                calendar.show(manager, ADD_START_TIME);
             }
         });
 
+        /*
         mSetFinishTimeButton = (Button) findViewById(R.id.set_finish_time_button);
         mSetFinishTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,18 +136,24 @@ public class NewEventActivity extends AppCompatActivity {
 
     public static class SetEventDate extends DialogFragment {
         private DatePicker mDatePicker;
+        private TimePicker mTimePicker;
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date());
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            switch (getTag()){
+                case ADD_DATE:
+                    return getDateDialog();
+                case ADD_START_TIME:
+                    return getStartTimeDialog();
+                default:
+                    return new AlertDialog.Builder(getActivity()).create();
+            }
 
+        }
+
+        private Dialog getDateDialog() {
             View v = LayoutInflater.from(getActivity()).inflate(R.layout.date_picker, null);
             mDatePicker = (DatePicker) v.findViewById(R.id.calendar_date_picker);
-            mDatePicker.init(year, month, day, null);
 
             return new AlertDialog.Builder(getActivity())
                     .setView(v)
@@ -151,11 +161,35 @@ public class NewEventActivity extends AppCompatActivity {
                     .setPositiveButton("Set", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Calendar set_date = Calendar.getInstance();
-                            set_date.set(Calendar.YEAR, mDatePicker.getYear());
-                            set_date.set(Calendar.MONTH, mDatePicker.getMonth());
-                            set_date.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
-                            mNewEvent.setEventDate(set_date.getTime());
+                            Calendar setDate = Calendar.getInstance();
+                            setDate.set(Calendar.YEAR, mDatePicker.getYear());
+                            setDate.set(Calendar.MONTH, mDatePicker.getMonth());
+                            setDate.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
+                            mNewEvent.setEventDate(setDate.getTime());
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    })
+                    .create();
+        }
+
+        private Dialog getStartTimeDialog(){
+            View v = LayoutInflater.from(getActivity()).inflate(R.layout.time_picker, null);
+            mTimePicker = (TimePicker) v.findViewById(R.id.time_picker);
+
+            return new AlertDialog.Builder(getActivity())
+                    .setView(v)
+                    .setTitle("Set event start time")
+                    .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Calendar setStartTime = Calendar.getInstance();
+                            setStartTime.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
+                            setStartTime.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
+                            mNewEvent.setEventDate(setStartTime.getTime());
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
