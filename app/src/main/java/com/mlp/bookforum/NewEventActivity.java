@@ -98,7 +98,7 @@ public class NewEventActivity extends AppCompatActivity {
                         .setPositiveButton("Yep!", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //add event
+                                new ManageSharedPref().addEvent(NewEventActivity.this, mNewEvent);
                             }
                         })
                         .setNegativeButton("Nope", new DialogInterface.OnClickListener() {

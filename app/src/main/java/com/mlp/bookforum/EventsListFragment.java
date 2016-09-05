@@ -28,6 +28,7 @@ public class EventsListFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         temp_events_test();
+        //forumEventsList = new ManageSharedPref().loadEvents(getActivity());
     }
 
     @Override
