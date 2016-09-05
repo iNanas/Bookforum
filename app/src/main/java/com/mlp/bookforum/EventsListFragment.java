@@ -49,7 +49,9 @@ public class EventsListFragment extends Fragment{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_add_event: return true;
+            case R.id.menu_add_event:
+                startActivity(NewEventActivity.newIntent(getActivity()));
+                return true;
             default: return super.onOptionsItemSelected(item);
         }
 
