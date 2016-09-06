@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class EventsListFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         forumEventsList = new ManageSharedPref().loadEvents(getActivity());
+        if(forumEventsList.size() == 0){
+            Toast.makeText(getActivity(), R.string.toast_add_events, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
