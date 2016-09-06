@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Bookforum</string>
     <string name="menu_add_event">Add event</string>
+    <string name="title_add_new_event">Add new Event</string>
+    <string name="title_confirmation">Confirmation</string>
+    <string name="set_event_date">Set event date</string>
+    <string name="set_event_start_time">Set event start time</string>
+    <string name="set_event_finish_time">Set event finish time</string>
+    <string name="yes_button_set">Set</string>
+    <string name="no_button_cancel">Cancel</string>
+    <string name="yes_button_yep">Yep!</string>
+    <string name="no_button_notyet">Not yet</string>
+    <string name="alert_message_add">Add this event to list?</string>
 </resources>

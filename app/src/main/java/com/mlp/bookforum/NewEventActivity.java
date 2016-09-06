@@ -26,20 +26,20 @@ public class NewEventActivity extends AppCompatActivity {
     private static final String ADD_FINISH_TIME = "com.mlp.bookforum.add_finish_time";
 
     public static Events mNewEvent;
-    private Button mSetDateButton;
-    private Button mSetStartTimeButton;
-    private Button mSetFinishTimeButton;
-    private Button mAddEvent;
-    private EditText mSetEventName;
-    private EditText mSetEventLocation;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
-        setTitle("Add new Event");
+        setTitle(R.string.title_add_new_event);
         mNewEvent = new Events();
+
+        Button mSetDateButton;
+        Button mSetStartTimeButton;
+        Button mSetFinishTimeButton;
+        Button mAddEvent;
+        EditText mSetEventName;
+        EditText mSetEventLocation;
 
         mSetEventName = (EditText) findViewById(R.id.set_event_name);
         mSetEventName.addTextChangedListener(new TextWatcher() {
@@ -77,10 +77,7 @@ public class NewEventActivity extends AppCompatActivity {
         mSetDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager manager = getSupportFragmentManager();
-                SetEventDate calendar = new SetEventDate();
-                calendar.show(manager, ADD_DATE);
-
+                setDateForOnClick(ADD_DATE);
             }
         });
 
@@ -88,9 +85,7 @@ public class NewEventActivity extends AppCompatActivity {
         mSetStartTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager manager = getSupportFragmentManager();
-                SetEventDate calendar = new SetEventDate();
-                calendar.show(manager, ADD_START_TIME);
+                setDateForOnClick(ADD_START_TIME);
             }
         });
 
@@ -98,9 +93,7 @@ public class NewEventActivity extends AppCompatActivity {
         mSetFinishTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager manager = getSupportFragmentManager();
-                SetEventDate calendar = new SetEventDate();
-                calendar.show(manager, ADD_FINISH_TIME);
+                setDateForOnClick(ADD_FINISH_TIME);
             }
         });
 
@@ -108,18 +101,17 @@ public class NewEventActivity extends AppCompatActivity {
         mAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(NewEventActivity.this).setTitle("Confirmation")
-                        .setMessage("Add this event to list?")
-                        .setPositiveButton("Yep!", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(NewEventActivity.this).setTitle(R.string.title_confirmation)
+                        .setMessage(R.string.alert_message_add)
+                        .setPositiveButton(R.string.yes_button_yep, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 new ManageSharedPref().addEvent(NewEventActivity.this, mNewEvent);
                             }
                         })
-                        .setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.no_button_notyet, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
                             }
                         })
                         .show();
@@ -127,9 +119,14 @@ public class NewEventActivity extends AppCompatActivity {
         });
     }
 
+    private void setDateForOnClick(String TAG){
+        FragmentManager manager = getSupportFragmentManager();
+        SetEventDate calendar = new SetEventDate();
+        calendar.show(manager, TAG);
+    }
+
     public static Intent newIntent(Context packageContext){
-        Intent intent = new Intent(packageContext, NewEventActivity.class);
-        return intent;
+        return new Intent(packageContext, NewEventActivity.class);
     }
 
     public static class SetEventDate extends DialogFragment {
@@ -142,9 +139,9 @@ public class NewEventActivity extends AppCompatActivity {
                 case ADD_DATE:
                     return getDateDialog();
                 case ADD_START_TIME:
-                    return getStartTimeDialog();
+                    return getTimeDialog(R.string.set_event_start_time);
                 case ADD_FINISH_TIME:
-                    return getFinishTimeDialog();
+                    return getTimeDialog(R.string.set_event_finish_time);
                 default:
                     return new AlertDialog.Builder(getActivity()).create();
             }
@@ -157,8 +154,8 @@ public class NewEventActivity extends AppCompatActivity {
 
             return new AlertDialog.Builder(getActivity())
                     .setView(v)
-                    .setTitle("Set event date")
-                    .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.set_event_date)
+                    .setPositiveButton(R.string.yes_button_set, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Calendar setDate = Calendar.getInstance();
@@ -168,7 +165,7 @@ public class NewEventActivity extends AppCompatActivity {
                             mNewEvent.setEventDate(setDate.getTime());
                         }
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.no_button_cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }
@@ -176,23 +173,28 @@ public class NewEventActivity extends AppCompatActivity {
                     .create();
         }
 
-        private Dialog getStartTimeDialog(){
+        private Dialog getTimeDialog(int time){
             View v = LayoutInflater.from(getActivity()).inflate(R.layout.time_picker, null);
             mTimePicker = (TimePicker) v.findViewById(R.id.time_picker);
 
             return new AlertDialog.Builder(getActivity())
                     .setView(v)
-                    .setTitle("Set event start time")
-                    .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    .setTitle(time)
+                    .setPositiveButton(R.string.yes_button_set, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Calendar setStartTime = Calendar.getInstance();
-                            setStartTime.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
-                            setStartTime.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
-                            mNewEvent.setEventStartTime(setStartTime.getTime());
+                            Calendar setTime = Calendar.getInstance();
+                            setTime.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
+                            setTime.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
+                            switch (getTag()){
+                                case ADD_START_TIME:
+                                    mNewEvent.setEventStartTime(setTime.getTime()); break;
+                                case ADD_FINISH_TIME:
+                                    mNewEvent.setEventFinishTime(setTime.getTime()); break;
+                            }
                         }
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.no_button_cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }
@@ -200,29 +202,6 @@ public class NewEventActivity extends AppCompatActivity {
                     .create();
         }
 
-        private Dialog getFinishTimeDialog(){
-            View v = LayoutInflater.from(getActivity()).inflate(R.layout.time_picker, null);
-            mTimePicker = (TimePicker) v.findViewById(R.id.time_picker);
-
-            return new AlertDialog.Builder(getActivity())
-                    .setView(v)
-                    .setTitle("Set event finish time")
-                    .setPositiveButton("Set", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Calendar setFinishTime = Calendar.getInstance();
-                            setFinishTime.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
-                            setFinishTime.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
-                            mNewEvent.setEventFinishTime(setFinishTime.getTime());
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    })
-                    .create();
-        }
 
     }
 
