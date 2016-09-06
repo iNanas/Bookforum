@@ -94,15 +94,15 @@ public class NewEventActivity extends AppCompatActivity {
             }
         });
 
-        /*
         mSetFinishTimeButton = (Button) findViewById(R.id.set_finish_time_button);
         mSetFinishTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                FragmentManager manager = getSupportFragmentManager();
+                SetEventDate calendar = new SetEventDate();
+                calendar.show(manager, ADD_FINISH_TIME);
             }
         });
-        */
 
         mAddEvent = (Button) findViewById(R.id.add_event_button);
         mAddEvent.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +125,6 @@ public class NewEventActivity extends AppCompatActivity {
                         .show();
             }
         });
-
-
     }
 
     public static Intent newIntent(Context packageContext){
@@ -145,6 +143,8 @@ public class NewEventActivity extends AppCompatActivity {
                     return getDateDialog();
                 case ADD_START_TIME:
                     return getStartTimeDialog();
+                case ADD_FINISH_TIME:
+                    return getFinishTimeDialog();
                 default:
                     return new AlertDialog.Builder(getActivity()).create();
             }
@@ -189,7 +189,31 @@ public class NewEventActivity extends AppCompatActivity {
                             Calendar setStartTime = Calendar.getInstance();
                             setStartTime.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
                             setStartTime.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
-                            mNewEvent.setEventDate(setStartTime.getTime());
+                            mNewEvent.setEventStartTime(setStartTime.getTime());
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    })
+                    .create();
+        }
+
+        private Dialog getFinishTimeDialog(){
+            View v = LayoutInflater.from(getActivity()).inflate(R.layout.time_picker, null);
+            mTimePicker = (TimePicker) v.findViewById(R.id.time_picker);
+
+            return new AlertDialog.Builder(getActivity())
+                    .setView(v)
+                    .setTitle("Set event finish time")
+                    .setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Calendar setFinishTime = Calendar.getInstance();
+                            setFinishTime.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
+                            setFinishTime.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
+                            mNewEvent.setEventFinishTime(setFinishTime.getTime());
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

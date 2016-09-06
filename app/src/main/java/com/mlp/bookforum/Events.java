@@ -8,6 +8,8 @@ public class Events implements Parcelable {
     private String mEventName;
     private String mEventLocation;
     private Date mEventDate;
+    private Date mEventStartTime;
+    private Date mEventFinishTime;
 
     public Events() {
     }
@@ -36,11 +38,31 @@ public class Events implements Parcelable {
         mEventName = eventName;
     }
 
+    public Date getEventFinishTime() {
+        return mEventFinishTime;
+    }
+
+    public void setEventFinishTime(Date eventFinishTime) {
+        mEventFinishTime = eventFinishTime;
+    }
+
+    public Date getEventStartTime() {
+        return mEventStartTime;
+    }
+
+    public void setEventStartTime(Date eventStartTime) {
+        mEventStartTime = eventStartTime;
+    }
+
     protected Events(Parcel in) {
         mEventName = in.readString();
         mEventLocation = in.readString();
         long tmpMEventDate = in.readLong();
         mEventDate = tmpMEventDate != -1 ? new Date(tmpMEventDate) : null;
+        long tmpMEventStartTime = in.readLong();
+        mEventStartTime = tmpMEventStartTime != -1 ? new Date(tmpMEventStartTime) : null;
+        long tmpMEventFinishTime = in.readLong();
+        mEventFinishTime = tmpMEventFinishTime != -1 ? new Date(tmpMEventFinishTime) : null;
     }
 
     @Override
@@ -53,6 +75,8 @@ public class Events implements Parcelable {
         dest.writeString(mEventName);
         dest.writeString(mEventLocation);
         dest.writeLong(mEventDate != null ? mEventDate.getTime() : -1L);
+        dest.writeLong(mEventStartTime != null ? mEventStartTime.getTime() : -1L);
+        dest.writeLong(mEventFinishTime != null ? mEventFinishTime.getTime() : -1L);
     }
 
     @SuppressWarnings("unused")
