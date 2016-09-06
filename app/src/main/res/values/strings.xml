@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Bookforum</string>
+    <string name="activity_eventlist_title">Форум Видавців</string>
     <string name="menu_add_event">Add event</string>
     <string name="title_add_new_event">Add new Event</string>
     <string name="title_confirmation">Confirmation</string>
@@ -11,4 +12,10 @@
     <string name="yes_button_yep">Yep!</string>
     <string name="no_button_notyet">Not yet</string>
     <string name="alert_message_add">Add this event to list?</string>
+    <string name="hint_event_name">Event Name    </string>
+    <string name="hint_event_location">Event Location</string>
+    <string name="xml_button_set_date">Set Date</string>
+    <string name="xml_button_set_start_time">Set start time</string>
+    <string name="xml_button_set_finish_time">Set finish time</string>
+    <string name="xml_button_add_event">Add event</string>
 </resources>

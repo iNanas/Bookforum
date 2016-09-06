@@ -176,6 +176,7 @@ public class NewEventActivity extends AppCompatActivity {
         private Dialog getTimeDialog(int time){
             View v = LayoutInflater.from(getActivity()).inflate(R.layout.time_picker, null);
             mTimePicker = (TimePicker) v.findViewById(R.id.time_picker);
+            mTimePicker.setIs24HourView(true);
 
             return new AlertDialog.Builder(getActivity())
                     .setView(v)

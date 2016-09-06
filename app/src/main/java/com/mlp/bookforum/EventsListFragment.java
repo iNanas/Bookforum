@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EventsListFragment extends Fragment{
@@ -33,7 +32,6 @@ public class EventsListFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        //temp_events_test();
         forumEventsList = new ManageSharedPref().loadEvents(getActivity());
     }
 
@@ -61,28 +59,6 @@ public class EventsListFragment extends Fragment{
                 return true;
             default: return super.onOptionsItemSelected(item);
         }
-
-
-    }
-
-    private void temp_events_test(){
-        forumEventsList = new ArrayList<>();
-        Events temp_event1 = new Events();
-        Events temp_event2 = new Events();
-        Events temp_event3 = new Events();
-        Events temp_event4 = new Events();
-        temp_event1.setEventName("Автограф-сесія Девіда Саттера (США).");
-        temp_event2.setEventName("Автограф-сесія Володимира Лиса та Надії Гуменюк.");
-        temp_event3.setEventName("Автограф сесія перекладачів Рея Бредбері – Ірини Бондаренко, Богдана Стасюка та Олени Кіфенко.");
-        temp_event4.setEventName("Творчий вечір Василя Шкляра");
-        temp_event1.setEventLocation("Палац мистецтв, хол 2 поверху");
-        temp_event2.setEventLocation("Стенд №2, Палац Мистецтв, 1 поверх");
-        temp_event3.setEventLocation("вул. Коперника, 17, Палац мистецтв, хол 2 поверху");
-        temp_event4.setEventLocation("вул. Леся Курбаса, 3, Львівський академічний театр імені Леся Курбаса");
-        forumEventsList.add(temp_event1);
-        forumEventsList.add(temp_event2);
-        forumEventsList.add(temp_event3);
-        forumEventsList.add(temp_event4);
     }
 
     private void setupAdapter(List<Events> eventsList) {
@@ -107,9 +83,12 @@ public class EventsListFragment extends Fragment{
             mForumEvent = forumEvent;
             mEventName.setText(mForumEvent.getEventName());
             mEventLocation.setText(mForumEvent.getEventLocation());
-            mEventDate.setText(DateFormat.format("d MMM", mForumEvent.getEventDate()));
-            mEventStartTime.setText(DateFormat.format("h:mm", mForumEvent.getEventStartTime()));
-            mEventFinishTime.setText(DateFormat.format("h:mm", mForumEvent.getEventFinishTime()));
+            if(mForumEvent.getEventDate() != null)
+                mEventDate.setText(DateFormat.format("d MMM", mForumEvent.getEventDate()));
+            if(mForumEvent.getEventStartTime() != null)
+                mEventStartTime.setText(DateFormat.format("HH:mm", mForumEvent.getEventStartTime()));
+            if(mForumEvent.getEventFinishTime() != null)
+                mEventFinishTime.setText(DateFormat.format("HH:mm", mForumEvent.getEventFinishTime()));
         }
     }
 
