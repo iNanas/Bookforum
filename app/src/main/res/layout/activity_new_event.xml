@@ -74,7 +74,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="#6F696B"
-                android:hint="@string/hint_event_name"/>
+                android:hint="@string/hint_event_name"
+                android:ems="6"/>
 
         </LinearLayout>
 
@@ -95,7 +96,8 @@
                 android:id="@+id/set_event_location"
                 android:layout_marginRight="5dp"
                 android:textColor="#6F696B"
-                android:hint="@string/hint_event_location"/>
+                android:hint="@string/hint_event_location"
+                android:ems="6"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Bookforum</string>
+    <string name="activity_eventlist_title">Форум Видавців</string>
+    <string name="toast_add_events">Агов, додай нових подій!</string>
+    <string name="add_event">Додати подію</string>
+    <string name="no_text">Ні</string>
+    <string name="delete_text">Видалити?</string>
+    <string name="title_add_new_event">Додати нову подію</string>
+    <string name="title_confirmation">Підтвердження</string>
+    <string name="set_event_date">Дата події</string>
+    <string name="set_event_start_time">Час початку</string>
+    <string name="set_event_finish_time">Час закінчення</string>
+    <string name="yes_button_set">Задати</string>
+    <string name="no_button_cancel">Відмінити</string>
+    <string name="yes_button_yep">Так</string>
+    <string name="preview_button">Переглянути</string>
+    <string name="alert_message_add">Додати до списку?</string>
+    <string name="hint_event_name">Назва події</string>
+    <string name="hint_event_location">Локація</string>
+    <string name="xml_button_set_date">Дата події</string>
+    <string name="xml_button_set_start_time">Почнеться</string>
+    <string name="xml_button_set_finish_time">Закінчиться</string>
+</resources>

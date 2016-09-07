@@ -22,7 +22,8 @@
         </activity>
 
         <activity android:name=".NewEventActivity"
-            android:parentActivityName=".EventsListActivity">
+                  android:parentActivityName=".EventsListActivity"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 
