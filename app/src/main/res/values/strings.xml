@@ -13,7 +13,7 @@
     <string name="yes_button_set">Set</string>
     <string name="no_button_cancel">Cancel</string>
     <string name="yes_button_yep">Yep!</string>
-    <string name="no_button_notyet">Not yet</string>
+    <string name="preview_button">Preview</string>
     <string name="alert_message_add">Add this event to list?</string>
     <string name="hint_event_name">Event Name    </string>
     <string name="hint_event_location">Event Location</string>

@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,9 @@ public class NewEventActivity extends AppCompatActivity {
     private static final String ADD_FINISH_TIME = "com.mlp.bookforum.add_finish_time";
 
     public static Events mNewEvent;
+    Button mSetDateButton;
+    Button mSetStartTimeButton;
+    Button mSetFinishTimeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +38,6 @@ public class NewEventActivity extends AppCompatActivity {
         setTitle(R.string.title_add_new_event);
         mNewEvent = new Events();
 
-        Button mSetDateButton;
-        Button mSetStartTimeButton;
-        Button mSetFinishTimeButton;
         Button mAddEvent;
         EditText mSetEventName;
         EditText mSetEventLocation;
@@ -109,14 +110,24 @@ public class NewEventActivity extends AppCompatActivity {
                                 new ManageSharedPref().addEvent(NewEventActivity.this, mNewEvent);
                             }
                         })
-                        .setNegativeButton(R.string.no_button_notyet, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.preview_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                eventPreview();
                             }
                         })
                         .show();
             }
         });
+    }
+
+    private void eventPreview() {
+        if(mNewEvent.getEventDate() != null)
+            mSetDateButton.setText(DateFormat.format("dd MMMM", mNewEvent.getEventDate()));
+        if(mNewEvent.getEventStartTime() != null)
+            mSetStartTimeButton.setText(DateFormat.format("HH:mm", mNewEvent.getEventStartTime()));
+        if(mNewEvent.getEventFinishTime() != null)
+            mSetFinishTimeButton.setText(DateFormat.format("HH:mm", mNewEvent.getEventFinishTime()));
     }
 
     private void setDateForOnClick(String TAG){
