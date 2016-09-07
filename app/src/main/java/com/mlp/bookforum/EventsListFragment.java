@@ -1,7 +1,9 @@
 package com.mlp.bookforum;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -45,6 +47,7 @@ public class EventsListFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_events_recyclerview, container, false);
         mEventsRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_recyclerView_list);
         mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setSwipeDeleter();
         setupAdapter(forumEventsList);
 
         return v;
@@ -70,7 +73,6 @@ public class EventsListFragment extends Fragment{
         if (isAdded()) {
             mEventsRecyclerView.setItemViewCacheSize(30);
             mEventsRecyclerView.setAdapter(new EventsAdapter(eventsList));
-            setSwipeDeleter();
         }
     }
 
@@ -84,9 +86,25 @@ public class EventsListFragment extends Fragment{
 
                     @Override
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                        new ManageSharedPref().removeEvent(getActivity(), viewHolder.getAdapterPosition());
-                        forumEventsList = new ManageSharedPref().loadEvents(getActivity());
-                        setupAdapter(forumEventsList);;
+                        final int adapterPosition = viewHolder.getAdapterPosition();
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle(R.string.title_confirmation)
+                                .setMessage(R.string.delete_text)
+                                .setPositiveButton(R.string.yes_button_yep, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        new ManageSharedPref().removeEvent(getActivity(), adapterPosition);
+                                        forumEventsList = new ManageSharedPref().loadEvents(getActivity());
+                                        setupAdapter(forumEventsList);
+                                    }
+                                })
+                                .setNegativeButton(R.string.no_text, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        setupAdapter(forumEventsList);
+                                    }
+                                })
+                                .show();
                     }
                 });
         swipeToDelete.attachToRecyclerView(mEventsRecyclerView);

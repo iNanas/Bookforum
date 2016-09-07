@@ -2,7 +2,9 @@
     <string name="app_name">Bookforum</string>
     <string name="activity_eventlist_title">Форум Видавців</string>
     <string name="toast_add_events">Hey, add some events!</string>
-    <string name="menu_add_event">Add event</string>
+    <string name="add_event">Add event</string>
+    <string name="no_text">No</string>
+    <string name="delete_text">Delete?</string>
     <string name="title_add_new_event">Add new Event</string>
     <string name="title_confirmation">Confirmation</string>
     <string name="set_event_date">Set event date</string>
@@ -18,5 +20,4 @@
     <string name="xml_button_set_date">Set Date</string>
     <string name="xml_button_set_start_time">Set start time</string>
     <string name="xml_button_set_finish_time">Set finish time</string>
-    <string name="xml_button_add_event">Add event</string>
 </resources>
