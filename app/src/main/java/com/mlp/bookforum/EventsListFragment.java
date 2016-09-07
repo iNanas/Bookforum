@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,11 +68,31 @@ public class EventsListFragment extends Fragment{
 
     private void setupAdapter(List<Events> eventsList) {
         if (isAdded()) {
+            mEventsRecyclerView.setItemViewCacheSize(30);
             mEventsRecyclerView.setAdapter(new EventsAdapter(eventsList));
+            setSwipeDeleter();
         }
     }
 
-    private class EventsViewHolder extends RecyclerView.ViewHolder {
+    private void setSwipeDeleter(){
+        ItemTouchHelper swipeToDelete = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        new ManageSharedPref().removeEvent(getActivity(), viewHolder.getAdapterPosition());
+                        forumEventsList = new ManageSharedPref().loadEvents(getActivity());
+                        setupAdapter(forumEventsList);;
+                    }
+                });
+        swipeToDelete.attachToRecyclerView(mEventsRecyclerView);
+    }
+
+    private class EventsViewHolder extends RecyclerView.ViewHolder{
         private Events mForumEvent;
 
         public EventsViewHolder(View itemView) {
@@ -88,7 +109,7 @@ public class EventsListFragment extends Fragment{
             mEventName.setText(mForumEvent.getEventName());
             mEventLocation.setText(mForumEvent.getEventLocation());
             if(mForumEvent.getEventDate() != null)
-                mEventDate.setText(DateFormat.format("d MMM", mForumEvent.getEventDate()));
+                mEventDate.setText(DateFormat.format("dd MMM", mForumEvent.getEventDate()));
             if(mForumEvent.getEventStartTime() != null)
                 mEventStartTime.setText(DateFormat.format("HH:mm", mForumEvent.getEventStartTime()));
             if(mForumEvent.getEventFinishTime() != null)

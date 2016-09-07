@@ -44,12 +44,12 @@ public class ManageSharedPref {
         forumEvents.add(newEvent);
         storeEvents(context, forumEvents);
     }
-    /*
-    public void removeEvent(Context context, Events receivedEvent) {
+
+    public void removeEvent(Context context, int receivedEventPosition) {
         ArrayList<Events> savedEvents = loadEvents(context);
         if (savedEvents != null) {
             for(int i = 0; i < savedEvents.size(); i++){
-                if(savedEvents.get(i).getSomeIdParam().equals(receivedEvent.getSomeIdParam())){
+                if(i == receivedEventPosition){
                     savedEvents.remove(savedEvents.get(i));
                     storeEvents(context, savedEvents);
                     break;
@@ -58,6 +58,5 @@ public class ManageSharedPref {
             }
         }
     }
-    */
 
 }
