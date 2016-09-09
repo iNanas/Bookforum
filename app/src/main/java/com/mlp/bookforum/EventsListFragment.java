@@ -73,8 +73,9 @@ public class EventsListFragment extends Fragment{
 
     private void setupAdapter(List<Events> eventsList) {
         if (isAdded()) {
-            mEventsRecyclerView.setItemViewCacheSize(30);
-            mEventsRecyclerView.setAdapter(new EventsAdapter(eventsList));
+            EventsAdapter adapter = new EventsAdapter(eventsList);
+            mEventsRecyclerView.setItemViewCacheSize(adapter.getItemCount() + 5);
+            mEventsRecyclerView.setAdapter(adapter);
         }
     }
 

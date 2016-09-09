@@ -42,7 +42,7 @@ public class ManageJsonFetching {
         List<Events> eventsList = new ArrayList<>();
 
         try {
-            String url = Uri.parse("http://bookforum.ua/wp-json/wp/v2/events/?per_page=15")
+            String url = Uri.parse("http://bookforum.ua/wp-json/wp/v2/events/?per_page=20&search=Бабкіна+Катерина")
                     .buildUpon()
                     .build().toString();
             String jsonString = getUrlString(url);
