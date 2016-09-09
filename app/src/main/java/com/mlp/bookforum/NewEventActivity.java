@@ -27,9 +27,9 @@ public class NewEventActivity extends AppCompatActivity {
     private static final String ADD_FINISH_TIME = "com.mlp.bookforum.add_finish_time";
 
     public static Events mNewEvent;
-    Button mSetDateButton;
-    Button mSetStartTimeButton;
-    Button mSetFinishTimeButton;
+    private Button mSetDateButton;
+    private Button mSetStartTimeButton;
+    private Button mSetFinishTimeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

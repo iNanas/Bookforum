@@ -20,7 +20,7 @@ public class ManageSharedPref {
         Gson gson = new Gson();
         String jsonEvents = gson.toJson(events_list);
         editor.putString(EVENTS_JSON, jsonEvents);
-        editor.commit();
+        editor.apply();
     }
     public ArrayList<Events> loadEvents(Context context) {
         SharedPreferences settings;

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Bookforum</string>
     <string name="activity_eventlist_title">Форум Видавців</string>
     <string name="toast_add_events">Агов, додай нових подій!</string>
     <string name="add_event">Додати подію</string>
