@@ -1,6 +1,7 @@
 package com.mlp.bookforum;
 
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -37,6 +38,7 @@ public class EventsListFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         forumEventsList = new ManageSharedPref().loadEvents(getActivity());
+        new AsyncTaskForEvents().execute();
         if(forumEventsList.size() == 0){
             Toast.makeText(getActivity(), R.string.toast_add_events, Toast.LENGTH_LONG).show();
         }
@@ -47,8 +49,8 @@ public class EventsListFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_events_recyclerview, container, false);
         mEventsRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_recyclerView_list);
         mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        setSwipeDeleter();
-        setupAdapter(forumEventsList);
+        //setSwipeDeleter();
+        //setupAdapter(forumEventsList);
 
         return v;
     }
@@ -156,6 +158,21 @@ public class EventsListFragment extends Fragment{
         @Override
         public int getItemCount() {
             return mEventsList.size();
+        }
+    }
+
+    private class AsyncTaskForEvents extends AsyncTask<String,Void,List<Events>> {
+        private List<Events> mEventsFromAPI;
+
+        @Override
+        protected List<Events> doInBackground(String... str) {
+            return new ManageJsonFetching().getJson();
+        }
+
+        @Override
+        protected void onPostExecute(List<Events> events) {
+            mEventsFromAPI = events;
+            setupAdapter(mEventsFromAPI);
         }
     }
 }
