@@ -38,7 +38,7 @@ public class EventsListFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         forumEventsList = new ManageSharedPref().loadEvents(getActivity());
-        new AsyncTaskForEvents().execute();
+        //new AsyncTaskForEvents().execute();
         if(forumEventsList.size() == 0){
             Toast.makeText(getActivity(), R.string.toast_add_events, Toast.LENGTH_LONG).show();
         }
@@ -49,8 +49,8 @@ public class EventsListFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_events_recyclerview, container, false);
         mEventsRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_recyclerView_list);
         mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //setSwipeDeleter();
-        //setupAdapter(forumEventsList);
+        setSwipeDeleter();
+        setupAdapter(forumEventsList);
 
         return v;
     }
